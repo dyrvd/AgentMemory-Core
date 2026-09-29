@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AgentMemory-Core Milestone",
+  "type": "object",
+  "required": [
+    "milestone_id",
+    "product_id",
+    "time",
+    "type",
+    "status",
+    "summary",
+    "source_pointers"
+  ],
+  "properties": {
+    "milestone_id": { "type": "string", "minLength": 1 },
+    "product_id": { "type": "string", "minLength": 1 },
+    "time": { "type": "string", "format": "date-time" },
+    "type": {
+      "type": "string",
+      "enum": [
+        "DECISION",
+        "ADOPTION",
+        "REJECTION",
+        "TEST_RESULT",
+        "FAILURE",
+        "CORRECTION",
+        "HANDOFF",
+        "RELEASE",
+        "ROLLBACK",
+        "SCOPE_CHANGE",
+        "OTHER"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["ACTIVE", "HISTORICAL", "SUPERSEDED", "CORRECTED", "WITHDRAWN", "UNKNOWN"]
+    },
+    "summary": { "type": "string", "minLength": 1 },
+    "source_pointers": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" }
+    },
+    "previous_milestone_id": { "type": ["string", "null"] },
+    "next_milestone_id": { "type": ["string", "null"] },
+    "related_memory_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "unresolved": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": false
+}

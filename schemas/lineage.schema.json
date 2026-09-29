@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AgentMemory-Core Lineage Graph",
+  "type": "object",
+  "required": ["product_id", "nodes", "edges"],
+  "properties": {
+    "product_id": { "type": "string", "minLength": 1 },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["node_id", "node_type", "summary"],
+        "properties": {
+          "node_id": { "type": "string", "minLength": 1 },
+          "node_type": {
+            "type": "string",
+            "enum": [
+              "REQUIREMENT",
+              "DESIGN",
+              "DECISION",
+              "ARTIFACT",
+              "TEST",
+              "FAILURE",
+              "CORRECTION",
+              "MILESTONE",
+              "RELEASE",
+              "ROLLBACK",
+              "OTHER"
+            ]
+          },
+          "summary": { "type": "string", "minLength": 1 },
+          "memory_id": { "type": ["string", "null"] },
+          "source_pointer": { "type": ["string", "null"] },
+          "time": { "type": ["string", "null"], "format": "date-time" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["from", "to", "relation"],
+        "properties": {
+          "from": { "type": "string", "minLength": 1 },
+          "to": { "type": "string", "minLength": 1 },
+          "relation": {
+            "type": "string",
+            "enum": ["previous", "next", "caused_by", "supersedes", "derived_from", "validated_by"]
+          },
+          "confidence": {
+            "type": ["string", "null"],
+            "enum": ["HIGH", "MEDIUM", "LOW", null]
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

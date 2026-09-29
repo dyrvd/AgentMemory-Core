@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AgentMemory-Core Memory Index Entry",
+  "type": "object",
+  "required": [
+    "memory_id",
+    "collection_id",
+    "product_id",
+    "summary",
+    "status",
+    "source_pointer"
+  ],
+  "properties": {
+    "memory_id": { "type": "string", "minLength": 1 },
+    "collection_id": { "type": "string", "minLength": 1 },
+    "product_id": { "type": "string", "minLength": 1 },
+    "workstream_id": { "type": ["string", "null"] },
+    "domain": { "type": ["string", "null"] },
+    "era": { "type": ["string", "null"] },
+    "topic": { "type": ["string", "null"] },
+    "actor_id": { "type": ["string", "null"] },
+    "summary": { "type": "string", "minLength": 1 },
+    "status": {
+      "type": "string",
+      "enum": ["CURRENT", "HISTORICAL", "SUPERSEDED", "CANDIDATE", "WITHDRAWN", "UNKNOWN"]
+    },
+    "source_pointer": { "type": "string", "minLength": 1 },
+    "source_location": { "type": ["string", "null"] },
+    "milestone_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "lineage_node_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "created_at": { "type": ["string", "null"], "format": "date-time" },
+    "updated_at": { "type": ["string", "null"], "format": "date-time" }
+  },
+  "additionalProperties": false
+}
